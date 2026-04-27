@@ -1,0 +1,22 @@
+{% extends "layouts/main.njk" %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+
+{% set pageTitle = "Apply for a parking permit" %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Apply for a parking permit</h1>
+        <p class="govuk-body-l">Use this sample flow as the pattern for simple Camden transactional forms.</p>
+        <p class="govuk-body">You can add pages in <code>app/views</code> and wire them in <code>app/routes.js</code>.</p>
+
+        {{ LBCamdenButton({
+          text: "Start now",
+          href: "/permit/address",
+          isStartButton: true
+        }) }}
+      </div>
+    </div>
+  </div>
+{% endblock %}

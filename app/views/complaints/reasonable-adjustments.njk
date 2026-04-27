@@ -1,0 +1,45 @@
+{% extends "layouts/main.njk" %}
+{% from "complaints/_macros.njk" import pageHeader, previousButton, nextButton %}
+
+{% set pageTitle = "Reasonable adjustments" %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+      {{ pageHeader("Complain about the council") }}
+      <h2 class="govuk-heading-l">Reasonable adjustments</h2>
+
+      <form action="/complaints/reasonable-adjustments" method="post">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend">Do you need us to make any reasonable adjustments for communicating with you?</legend>
+            <div class="govuk-hint">For example, large print or Easy Read documents, having longer to respond, and communicating over the phone rather than email</div>
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="needsAdjustments" type="radio" name="needsAdjustments" value="yes" data-aria-controls="conditional-needsAdjustments" {% if data.needsAdjustments == "yes" %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="needsAdjustments">Yes</label>
+              </div>
+              <div class="govuk-radios__conditional{% if data.needsAdjustments != 'yes' %} govuk-radios__conditional--hidden{% endif %}" id="conditional-needsAdjustments">
+                <div class="govuk-form-group">
+                  <label class="govuk-label" for="adjustmentsDetails">Tell us what reasonable adjustments you need</label>
+                  <textarea class="govuk-textarea" id="adjustmentsDetails" name="adjustmentsDetails" rows="5">{{ data.adjustmentsDetails or '' }}</textarea>
+                </div>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="needsAdjustments-2" type="radio" name="needsAdjustments" value="no" {% if data.needsAdjustments == "no" %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="needsAdjustments-2">No</label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="govuk-button-group">
+          {{ previousButton("/complaints/supporting-documents") }}
+          {{ nextButton() }}
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

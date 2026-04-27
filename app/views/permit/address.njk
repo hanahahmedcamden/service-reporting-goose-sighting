@@ -1,0 +1,57 @@
+{% extends "layouts/main.njk" %}
+{% from "macros/forms.njk" import errorSummary, textInput %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+
+{% set pageTitle = "What is your address?" %}
+
+{% block beforeContent %}
+  <div class="govuk-width-container">
+    <a href="/permit/start" class="govuk-back-link">Back</a>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {{ errorSummary(errorList) }}
+
+        <form action="/permit/address" method="post" novalidate>
+          <h1 class="govuk-heading-xl">What is your address?</h1>
+
+          {{ textInput({
+            name: "addressLine1",
+            label: "Address line 1",
+            autocomplete: "address-line1",
+            value: data.addressLine1,
+            error: errors.addressLine1
+          }) }}
+
+          {{ textInput({
+            name: "addressLine2",
+            label: "Address line 2",
+            autocomplete: "address-line2",
+            value: data.addressLine2
+          }) }}
+
+          {{ textInput({
+            name: "postcode",
+            label: "Postcode",
+            classes: "govuk-input--width-10",
+            autocomplete: "postal-code",
+            inputmode: "text",
+            value: data.postcode,
+            error: errors.postcode
+          }) }}
+
+          <div class="govuk-button-group">
+            {{ LBCamdenButton({
+              text: "Continue",
+              preventDoubleClick: true
+            }) }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

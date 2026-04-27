@@ -1,0 +1,88 @@
+{% extends "layouts/main.njk" %}
+{% from "complaints/_macros.njk" import pageHeader, previousButton, nextButton %}
+
+{% set pageTitle = "Your details" %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+      {{ pageHeader("Complain about the council") }}
+      <h2 class="govuk-heading-l">Your details</h2>
+
+      <form action="/complaints/your-details" method="post">
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="firstName">First name</label>
+          <input class="govuk-input" id="firstName" name="firstName" type="text" value="{{ data.firstName or '' }}" autocomplete="given-name">
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="lastName">Last name</label>
+          <input class="govuk-input" id="lastName" name="lastName" type="text" value="{{ data.lastName or '' }}" autocomplete="family-name">
+        </div>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend">Full address</legend>
+            <div class="govuk-hint">If this complaint related to your address, tell us this information</div>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="addressLine1">Address line 1</label>
+              <input class="govuk-input" id="addressLine1" name="addressLine1" type="text" value="{{ data.addressLine1 or '' }}" autocomplete="address-line1">
+            </div>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="addressLine2">Address line 2 (optional)</label>
+              <input class="govuk-input" id="addressLine2" name="addressLine2" type="text" value="{{ data.addressLine2 or '' }}" autocomplete="address-line2">
+            </div>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="townOrCity">Town or city</label>
+              <input class="govuk-input govuk-!-width-two-thirds" id="townOrCity" name="townOrCity" type="text" value="{{ data.townOrCity or '' }}" autocomplete="address-level2">
+            </div>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="county">County (optional)</label>
+              <input class="govuk-input govuk-!-width-two-thirds" id="county" name="county" type="text" value="{{ data.county or '' }}">
+            </div>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="postcode">Postcode</label>
+              <input class="govuk-input govuk-input--width-10" id="postcode" name="postcode" type="text" value="{{ data.postcode or '' }}" autocomplete="postal-code">
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="email">Email address</label>
+          <input class="govuk-input" id="email" name="email" type="email" value="{{ data.email or '' }}" autocomplete="email">
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="phone">Phone number</label>
+          <input class="govuk-input" id="phone" name="phone" type="tel" value="{{ data.phone or '' }}" autocomplete="tel">
+        </div>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend">How would you like to receive our response to your complaint?</legend>
+            <div class="govuk-checkboxes">
+              {% for method in ["Letter", "Email", "Phone"] %}
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="responseMethods-{{ loop.index }}" type="checkbox" name="responseMethods" value="{{ method }}" {% if data.responseMethods and method in data.responseMethods %}checked{% endif %}>
+                  <label class="govuk-label govuk-checkboxes__label" for="responseMethods-{{ loop.index }}">{{ method }}</label>
+                </div>
+              {% endfor %}
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="govuk-button-group">
+          {{ previousButton("/complaints/previous-complaint") }}
+          {{ nextButton() }}
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

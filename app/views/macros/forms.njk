@@ -1,0 +1,43 @@
+{% macro errorSummary(errorList) %}
+  {% if errorList and errorList.length %}
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+      <div role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% for error in errorList %}
+              <li><a href="{{ error.href }}">{{ error.text }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro textInput(params) %}
+  {% set hasError = params.error %}
+  <div class="govuk-form-group{% if hasError %} govuk-form-group--error{% endif %}">
+    <label class="govuk-label{% if params.labelClasses %} {{ params.labelClasses }}{% endif %}" for="{{ params.id or params.name }}">
+      {{ params.label }}
+    </label>
+    {% if params.hint %}
+      <div id="{{ params.id or params.name }}-hint" class="govuk-hint">{{ params.hint }}</div>
+    {% endif %}
+    {% if hasError %}
+      <p id="{{ params.id or params.name }}-error" class="govuk-error-message">
+        <span class="govuk-visually-hidden">Error:</span> {{ params.error }}
+      </p>
+    {% endif %}
+    <input
+      class="govuk-input{% if hasError %} govuk-input--error{% endif %}{% if params.classes %} {{ params.classes }}{% endif %}"
+      id="{{ params.id or params.name }}"
+      name="{{ params.name }}"
+      type="{{ params.type or 'text' }}"
+      value="{{ params.value or '' }}"
+      {% if params.autocomplete %}autocomplete="{{ params.autocomplete }}"{% endif %}
+      {% if params.inputmode %}inputmode="{{ params.inputmode }}"{% endif %}
+      {% if params.hint %}aria-describedby="{{ params.id or params.name }}-hint{% if hasError %} {{ params.id or params.name }}-error{% endif %}"{% elif hasError %}aria-describedby="{{ params.id or params.name }}-error"{% endif %}
+    >
+  </div>
+{% endmacro %}

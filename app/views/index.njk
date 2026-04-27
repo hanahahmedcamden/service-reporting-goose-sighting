@@ -1,0 +1,44 @@
+{% extends "layouts/main.njk" %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+
+{% set pageTitle = "Prototype index" %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">Camden prototype kit</h1>
+      <p class="govuk-body-l">Use this project to sketch transactional Camden services with Nunjucks, routes and session data.</p>
+
+      <div class="govuk-button-group">
+        {{ LBCamdenButton({
+          text: "Start complaints form",
+          href: "/complaints/who-for"
+        }) }}
+        {{ LBCamdenButton({
+          text: "Start sample permit flow",
+          href: "/permit/start",
+          classes: "lbcamden-button--secondary"
+        }) }}
+      </div>
+
+      <h2 class="govuk-heading-l">What is included</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Camden frontend CSS, assets, header and footer styling</li>
+        <li>A complaints journey matching the supplied screenshots</li>
+        <li>The original parking permit sample, including form validation examples</li>
+        <li>Session-backed prototype data available as <code>data</code> in views</li>
+      </ul>
+
+      <div class="app-prototype-actions">
+        <form action="/clear-data" method="post">
+          {{ LBCamdenButton({
+            text: "Clear prototype data",
+            classes: "govuk-button--secondary"
+          }) }}
+        </form>
+      </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

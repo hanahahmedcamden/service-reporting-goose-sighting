@@ -1,0 +1,27 @@
+{% extends "layouts/main.njk" %}
+{% from "complaints/_macros.njk" import pageHeader, previousButton, nextButton %}
+
+{% set pageTitle = "Supporting documents" %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+      {{ pageHeader("Complain about the council") }}
+      <h2 class="govuk-heading-l">Supporting documents</h2>
+
+      <form action="/complaints/supporting-documents" method="post" enctype="multipart/form-data">
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="supportingDocument">Upload any documents, videos or images that can help explain your complaint</label>
+          <input class="govuk-file-upload" id="supportingDocument" name="supportingDocument" type="file">
+        </div>
+
+        <div class="govuk-button-group">
+          {{ previousButton("/complaints/complaint-details") }}
+          {{ nextButton() }}
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

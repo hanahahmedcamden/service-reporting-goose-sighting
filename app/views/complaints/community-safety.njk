@@ -1,0 +1,55 @@
+{% extends "layouts/main.njk" %}
+{% from "complaints/_macros.njk" import pageHeader, previousButton, nextButton %}
+
+{% set pageTitle = "Your complaint" %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+      {{ pageHeader("Complain about the council") }}
+      <h2 class="govuk-heading-l">Your complaint</h2>
+
+      <form action="/complaints/community-safety" method="post">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend">Which community area is your complaint about?</legend>
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="communitySafetyArea" type="radio" name="communitySafetyArea" value="Anti-social behaviour" {% if data.communitySafetyArea == "Anti-social behaviour" %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="communitySafetyArea">Anti-social behaviour</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="communitySafetyArea-2" type="radio" name="communitySafetyArea" value="Crime prevention" {% if data.communitySafetyArea == "Crime prevention" %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="communitySafetyArea-2">Crime prevention</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="communitySafetyArea-3" type="radio" name="communitySafetyArea" value="Fly tipping" {% if data.communitySafetyArea == "Fly tipping" %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="communitySafetyArea-3">Fly tipping</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="communitySafetyArea-4" type="radio" name="communitySafetyArea" value="Other" data-aria-controls="conditional-communitySafetyArea-4" {% if data.communitySafetyArea == "Other" %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="communitySafetyArea-4">Other</label>
+              </div>
+              <div class="govuk-radios__conditional{% if data.communitySafetyArea != 'Other' %} govuk-radios__conditional--hidden{% endif %}" id="conditional-communitySafetyArea-4">
+                <div class="govuk-form-group">
+                  <label class="govuk-label" for="communitySafetyOther">Tell us which service you’re complaining about</label>
+                  <textarea class="govuk-textarea" id="communitySafetyOther" name="communitySafetyOther" rows="5">{{ data.communitySafetyOther or '' }}</textarea>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="govuk-button-group">
+          {{ previousButton("/complaints/service") }}
+          {{ nextButton() }}
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

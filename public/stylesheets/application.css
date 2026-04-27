@@ -1,0 +1,17 @@
+.app-prototype-actions {
+  border-top: 1px solid #b1b4b6;
+  margin-top: 40px;
+  padding-top: 20px;
+}
+
+.app-prototype-data {
+  background: #f3f2f1;
+  border-left: 5px solid #b1b4b6;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 16px;
+  overflow: auto;
+  padding: 15px;
+  white-space: pre-wrap;
+}
+
+/*# sourceMappingURL=application.css.map */

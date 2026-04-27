@@ -1,0 +1,25 @@
+{
+  "name": "camden-prototype-kit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A lightweight Camden-flavoured prototyping kit for transactional services.",
+  "scripts": {
+    "build": "npm run build:sass && npm run copy:assets",
+    "build:sass": "sass --load-path=node_modules app/assets/sass/application.scss public/stylesheets/application.css",
+    "copy:assets": "node scripts/copy-assets.js",
+    "dev": "npm run build && nodemon --watch app --watch server.js --watch public --ext js,njk,scss --exec \"npm run build:sass && node server.js\"",
+    "dev:3010": "PORT=3010 npm run dev",
+    "start": "npm run build && node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "govuk-frontend": "^5.8.0",
+    "lbcamden-frontend": "1.0.7",
+    "nunjucks": "^3.2.4",
+    "sass": "^1.89.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

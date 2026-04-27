@@ -1,0 +1,17 @@
+{% extends "layouts/main.njk" %}
+{% from "complaints/_macros.njk" import pageHeader %}
+
+{% set pageTitle = "Thank you for submitting a complaint" %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+      {{ pageHeader("Complain about the council") }}
+
+      <h2 class="govuk-heading-l">Thank you for submitting a complaint</h2>
+      <p class="govuk-body">The case reference is [COMLRXXXX]. We’ll contact you within 5 working days.</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

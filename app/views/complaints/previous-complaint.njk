@@ -1,0 +1,46 @@
+{% extends "layouts/main.njk" %}
+{% from "complaints/_macros.njk" import pageHeader, previousButton, nextButton %}
+
+{% set pageTitle = "Your complaint" %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+      {{ pageHeader("Complain about the council") }}
+      <h2 class="govuk-heading-l">Your complaint</h2>
+
+      <form action="/complaints/previous-complaint" method="post">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend">Have you made a complaint about this issue before?</legend>
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="previousComplaint" type="radio" name="previousComplaint" value="yes" data-aria-controls="conditional-previousComplaint" {% if data.previousComplaint == "yes" %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="previousComplaint">Yes</label>
+              </div>
+              <div class="govuk-radios__conditional{% if data.previousComplaint != 'yes' %} govuk-radios__conditional--hidden{% endif %}" id="conditional-previousComplaint">
+                <div class="govuk-form-group">
+                  <label class="govuk-label" for="previousComplaintReference">What is the case reference number?</label>
+                  <div id="previousComplaintReference-hint" class="govuk-hint">This begins with COMLR</div>
+                  <input class="govuk-input" id="previousComplaintReference" name="previousComplaintReference" type="text" value="{{ data.previousComplaintReference or '' }}" aria-describedby="previousComplaintReference-hint">
+                </div>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="previousComplaint-2" type="radio" name="previousComplaint" value="no" {% if data.previousComplaint == "no" %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="previousComplaint-2">No</label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="govuk-button-group">
+          {{ previousButton("/complaints/community-safety" if data.service == "Community safety" else "/complaints/service") }}
+          {{ nextButton() }}
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

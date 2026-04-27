@@ -1,0 +1,53 @@
+{% extends "layouts/main.njk" %}
+{% from "complaints/_macros.njk" import pageHeader, nextButton %}
+
+{% set pageTitle = "Complain about the council" %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+      {{ pageHeader("Complain about the council") }}
+
+      <form action="/complaints/who-for" method="post">
+        <div class="govuk-form-group">
+
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend">Who are you making this complaint for?</legend>
+            <div class="govuk-hint">If you’re making a complaint for someone else, we may have to ask you for information about them</div>
+
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="complaintFor" type="radio" name="complaintFor" value="myself" {% if data.complaintFor == "myself" %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="complaintFor">Myself</label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="complaintFor-2" type="radio" name="complaintFor" value="someone-else" data-aria-controls="conditional-complaintFor-2" {% if data.complaintFor == "someone-else" %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="complaintFor-2">Someone else</label>
+              </div>
+              <div class="govuk-radios__conditional{% if data.complaintFor != 'someone-else' %} govuk-radios__conditional--hidden{% endif %}" id="conditional-complaintFor-2">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                  <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="hasPermission" name="hasPermission" type="checkbox" value="yes" {% if data.hasPermission == "yes" %}checked{% endif %}>
+                    <label class="govuk-label govuk-checkboxes__label" for="hasPermission">
+                      I confirm I have permission to make a complaint on their behalf
+                    </label>
+                  </div>
+                </div>
+
+                <div class="govuk-form-group govuk-!-margin-top-6">
+                  <label class="govuk-label" for="permissionDocument">Upload the consent form or other official permission document</label>
+                  <input class="govuk-file-upload" id="permissionDocument" name="permissionDocument" type="file">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="govuk-button-group">
+          {{ nextButton() }}
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

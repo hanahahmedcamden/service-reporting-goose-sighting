@@ -1,0 +1,43 @@
+{% extends "layouts/main.njk" %}
+{% from "complaints/_macros.njk" import pageHeader, previousButton, nextButton %}
+
+{% set pageTitle = "Your complaint" %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+      {{ pageHeader("Complain about the council") }}
+      <h2 class="govuk-heading-l">Your complaint</h2>
+
+      <form action="/complaints/complaint-details" method="post">
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="complaintDescription">Describe your complaint</label>
+          <div class="govuk-hint">Be as specific as possible, including who is involved, where it happened and what happened</div>
+          <textarea class="govuk-textarea" id="complaintDescription" name="complaintDescription" rows="5">{{ data.complaintDescription or '' }}</textarea>
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="incidentDate">When did this happen?</label>
+          <textarea class="govuk-textarea" id="incidentDate" name="incidentDate" rows="5">{{ data.incidentDate or '' }}</textarea>
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="impact">Tell us how this issue has affected you</label>
+          <textarea class="govuk-textarea" id="impact" name="impact" rows="5">{{ data.impact or '' }}</textarea>
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="desiredOutcome">What would you like us to do?</label>
+          <textarea class="govuk-textarea" id="desiredOutcome" name="desiredOutcome" rows="5">{{ data.desiredOutcome or '' }}</textarea>
+        </div>
+
+        <div class="govuk-button-group">
+          {{ previousButton("/complaints/your-details") }}
+          {{ nextButton() }}
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

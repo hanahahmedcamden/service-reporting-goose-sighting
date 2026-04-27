@@ -1,0 +1,53 @@
+{% extends "layouts/main.njk" %}
+{% from "complaints/_macros.njk" import pageHeader, previousButton, nextButton %}
+
+{% set pageTitle = "Your complaint" %}
+{% set services = [
+  "Benefits and Council Tax",
+  "Registration (births, deaths, marriages and citizenship)",
+  "Business",
+  "Children, families and young people",
+  "Community safety",
+  "Education (including for adults) and school SEND support",
+  "Environmental issues",
+  "Housing and repairs",
+  "Job support and volunteering",
+  "Libraries",
+  "Parking and Penalty Charge Notices (PCNs)",
+  "Planning and building development",
+  "Parking and Penalty Charge Notices (PCNs)",
+  "Recycling and rubbish",
+  "Roads",
+  "Travel",
+  "Social care and health",
+  "Sport, parks and leisure facilities",
+  "Other"
+] %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+      {{ pageHeader("Complain about the council") }}
+      <h2 class="govuk-heading-l">Your complaint</h2>
+
+      <form action="/complaints/service" method="post">
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="service">Which service are you complaining about?</label>
+          <select class="govuk-select govuk-!-width-full" id="service" name="service">
+            <option value="">Please select</option>
+            {% for service in services %}
+              <option value="{{ service }}" {% if data.service == service %}selected{% endif %}>{{ service }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="govuk-button-group">
+          {{ previousButton("/complaints/who-for") }}
+          {{ nextButton() }}
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

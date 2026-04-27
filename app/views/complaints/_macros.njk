@@ -1,0 +1,30 @@
+{% from "components/button/macro.njk" import LBCamdenButton %}
+
+{% macro breadcrumbs() %}
+  <nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="#">Home</a></li>
+      <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="#">Your Council</a></li>
+      <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/complaints/who-for">Complaints</a></li>
+    </ol>
+  </nav>
+{% endmacro %}
+
+{% macro pageHeader(heading) %}
+  {{ breadcrumbs() }}
+  <h1 class="govuk-heading-xl">{{ heading or "Complain about the council" }}</h1>
+{% endmacro %}
+
+{% macro previousButton(href) %}
+  {{ LBCamdenButton({
+    text: "Previous",
+    href: href,
+    classes: "lbcamden-button--secondary"
+  }) }}
+{% endmacro %}
+
+{% macro nextButton(text) %}
+  {{ LBCamdenButton({
+    text: text or "Next"
+  }) }}
+{% endmacro %}
