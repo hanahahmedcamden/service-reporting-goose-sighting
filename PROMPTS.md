@@ -18,10 +18,13 @@ Follow the Camden frontend library styles and Storybook patterns at https://main
 Create these pages:
 - Start page
 - Do you like geese? Yes or No
-- What type of goose did you see? Text input, single line
-- When did you see the goose? Date input with hint "For example, 16 4 2017"
-- Check your answers page
-- Confirmation page with random reference number
+- [No branch] Early termination page that states, "We're sorry you don't like geese. This service is for designed for those who like geese."
+- [Yes branch]
+    - What type of goose did you see? Text input, single line
+    - When did you see the goose? Date input with hint "For example, 16 4 2017"
+    - Check your answers page
+    - Confirmation page with random reference number
+
 
 All field require input so add validation for required form fields.
 
