@@ -1,0 +1,18 @@
+{% extends "layouts/main.njk" %}
+
+{% set pageTitle = "Goose sighting recorded" %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+          <h1 class="govuk-panel__title">Goose sighting recorded</h1>
+          <div class="govuk-panel__body">Reference number<br><strong>{{ data.gooseReferenceNumber }}</strong></div>
+        </div>
+
+        <p class="govuk-body">We have received your goose sighting.</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

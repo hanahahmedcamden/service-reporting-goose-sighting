@@ -1,0 +1,55 @@
+{% extends "layouts/main.njk" %}
+{% from "macros/forms.njk" import errorSummary %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+
+{% set pageTitle = "Do you like geese?" %}
+
+{% block beforeContent %}
+  <div class="govuk-width-container">
+    <a href="/goose-sighting/start" class="govuk-back-link">Back</a>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {{ errorSummary(errorList) }}
+
+        <form action="/goose-sighting/like-geese" method="post" novalidate>
+          <div class="govuk-form-group{% if errors.likesGeese %} govuk-form-group--error{% endif %}">
+            <fieldset class="govuk-fieldset"{% if errors.likesGeese %} aria-describedby="likesGeese-error"{% endif %}>
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <h1 class="govuk-fieldset__heading">Do you like geese?</h1>
+              </legend>
+
+              {% if errors.likesGeese %}
+                <p id="likesGeese-error" class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span> {{ errors.likesGeese }}
+                </p>
+              {% endif %}
+
+              <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="likesGeese" name="likesGeese" type="radio" value="yes" {% if data.likesGeese == "yes" %}checked{% endif %}>
+                  <label class="govuk-label govuk-radios__label" for="likesGeese">Yes</label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="likesGeese-2" name="likesGeese" type="radio" value="no" {% if data.likesGeese == "no" %}checked{% endif %}>
+                  <label class="govuk-label govuk-radios__label" for="likesGeese-2">No</label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="govuk-button-group">
+            {{ LBCamdenButton({
+              text: "Continue",
+              preventDoubleClick: true
+            }) }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

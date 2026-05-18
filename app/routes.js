@@ -2,8 +2,129 @@ const express = require('express')
 
 const router = express.Router()
 
+function errorListFrom(errors) {
+  return Object.entries(errors).map(([field, text]) => ({
+    href: `#${field}`,
+    text
+  }))
+}
+
+function generateGooseReferenceNumber() {
+  return `GOOSE-${Math.floor(100000 + Math.random() * 900000)}`
+}
+
 router.get('/', (req, res) => {
   res.render('index')
+})
+
+router.get('/goose-sighting', (req, res) => {
+  res.redirect('/goose-sighting/start')
+})
+
+router.get('/goose-sighting/start', (req, res) => {
+  res.render('goose-sighting/start')
+})
+
+router.get('/goose-sighting/like-geese', (req, res) => {
+  res.render('goose-sighting/like-geese')
+})
+
+router.post('/goose-sighting/like-geese', (req, res) => {
+  const { likesGeese } = req.body
+  const errors = {}
+
+  if (!likesGeese) {
+    errors.likesGeese = 'Select whether you like geese'
+  }
+
+  if (Object.keys(errors).length) {
+    return res.status(422).render('goose-sighting/like-geese', {
+      errors,
+      errorList: errorListFrom(errors)
+    })
+  }
+
+  req.session.data.likesGeese = likesGeese
+
+  if (likesGeese === 'no') {
+    return res.redirect('/goose-sighting/not-for-you')
+  }
+
+  res.redirect('/goose-sighting/type')
+})
+
+router.get('/goose-sighting/not-for-you', (req, res) => {
+  res.render('goose-sighting/not-for-you')
+})
+
+router.get('/goose-sighting/type', (req, res) => {
+  res.render('goose-sighting/type')
+})
+
+router.post('/goose-sighting/type', (req, res) => {
+  const gooseType = req.body.gooseType && req.body.gooseType.trim()
+  const errors = {}
+
+  if (!gooseType) {
+    errors.gooseType = 'Enter the type of goose you saw'
+  }
+
+  if (Object.keys(errors).length) {
+    return res.status(422).render('goose-sighting/type', {
+      errors,
+      errorList: errorListFrom(errors)
+    })
+  }
+
+  req.session.data.gooseType = gooseType
+
+  res.redirect('/goose-sighting/date')
+})
+
+router.get('/goose-sighting/date', (req, res) => {
+  res.render('goose-sighting/date')
+})
+
+router.post('/goose-sighting/date', (req, res) => {
+  const gooseSeenDay = req.body.gooseSeenDay && req.body.gooseSeenDay.trim()
+  const gooseSeenMonth = req.body.gooseSeenMonth && req.body.gooseSeenMonth.trim()
+  const gooseSeenYear = req.body.gooseSeenYear && req.body.gooseSeenYear.trim()
+  const errors = {}
+
+  if (!gooseSeenDay || !gooseSeenMonth || !gooseSeenYear) {
+    errors.gooseSeen = 'Enter the date you saw the goose'
+  }
+
+  if (Object.keys(errors).length) {
+    return res.status(422).render('goose-sighting/date', {
+      errors,
+      errorList: [{ href: '#gooseSeenDay', text: errors.gooseSeen }]
+    })
+  }
+
+  Object.assign(req.session.data, {
+    gooseSeenDay,
+    gooseSeenMonth,
+    gooseSeenYear
+  })
+
+  res.redirect('/goose-sighting/check-answers')
+})
+
+router.get('/goose-sighting/check-answers', (req, res) => {
+  res.render('goose-sighting/check-answers')
+})
+
+router.post('/goose-sighting/check-answers', (req, res) => {
+  req.session.data.gooseReferenceNumber = generateGooseReferenceNumber()
+
+  res.redirect('/goose-sighting/confirmation')
+})
+
+router.get('/goose-sighting/confirmation', (req, res) => {
+  req.session.data.gooseReferenceNumber = req.session.data.gooseReferenceNumber || generateGooseReferenceNumber()
+
+  res.render('goose-sighting/confirmation')
 })
 
 router.get('/permit/start', (req, res) => {

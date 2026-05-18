@@ -1,0 +1,22 @@
+{% extends "layouts/main.njk" %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+
+{% set pageTitle = "Record a goose sighting" %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Record a goose sighting</h1>
+        <p class="govuk-body-l">Use this service to tell Camden Council about a goose you have seen.</p>
+        <p class="govuk-body">You will be asked whether you like geese, what type of goose you saw and when you saw it.</p>
+
+        {{ LBCamdenButton({
+          text: "Start now",
+          href: "/goose-sighting/like-geese",
+          isStartButton: true
+        }) }}
+      </div>
+    </div>
+  </div>
+{% endblock %}

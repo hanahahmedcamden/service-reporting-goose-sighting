@@ -1,0 +1,67 @@
+{% extends "layouts/main.njk" %}
+{% from "macros/forms.njk" import errorSummary %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+
+{% set pageTitle = "When did you see the goose?" %}
+
+{% block beforeContent %}
+  <div class="govuk-width-container">
+    <a href="/goose-sighting/type" class="govuk-back-link">Back</a>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {{ errorSummary(errorList) }}
+
+        <form action="/goose-sighting/date" method="post" novalidate>
+          <div class="govuk-form-group{% if errors.gooseSeen %} govuk-form-group--error{% endif %}">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="gooseSeen-hint{% if errors.gooseSeen %} gooseSeen-error{% endif %}">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <h1 class="govuk-fieldset__heading">When did you see the goose?</h1>
+              </legend>
+
+              <div id="gooseSeen-hint" class="govuk-hint">For example, 16 4 2017</div>
+
+              {% if errors.gooseSeen %}
+                <p id="gooseSeen-error" class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span> {{ errors.gooseSeen }}
+                </p>
+              {% endif %}
+
+              <div class="govuk-date-input" id="gooseSeen">
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="gooseSeenDay">Day</label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors.gooseSeen %} govuk-input--error{% endif %}" id="gooseSeenDay" name="gooseSeenDay" type="text" inputmode="numeric" value="{{ data.gooseSeenDay or '' }}">
+                  </div>
+                </div>
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="gooseSeenMonth">Month</label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors.gooseSeen %} govuk-input--error{% endif %}" id="gooseSeenMonth" name="gooseSeenMonth" type="text" inputmode="numeric" value="{{ data.gooseSeenMonth or '' }}">
+                  </div>
+                </div>
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="gooseSeenYear">Year</label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errors.gooseSeen %} govuk-input--error{% endif %}" id="gooseSeenYear" name="gooseSeenYear" type="text" inputmode="numeric" value="{{ data.gooseSeenYear or '' }}">
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="govuk-button-group">
+            {{ LBCamdenButton({
+              text: "Continue",
+              preventDoubleClick: true
+            }) }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
